@@ -1,0 +1,23 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="home-content">
+        <h2>Dashboard</h2>
+        {% if user.is_authenticated %}
+            <p>Welcome, <strong>{{ user.name }}</strong>!</p>
+            <p>Email: {{ user.email }}</p>
+            <form action="{% url 'logout' %}" method="post" style="margin-top: 1rem;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        {% else %}
+            <p>You are not logged in.</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <a href="{% url 'login' %}" style="flex: 1;"><button type="button" style="width: 100%;">Login</button></a>
+                <a href="{% url 'signup' %}" style="flex: 1;"><button type="button" style="width: 100%; background-color: #6c757d;">Signup</button></a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
